@@ -14,18 +14,13 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.authorizeHttpRequests((auth) -> auth
-                .requestMatchers("/", "login", "logout").permitAll()
+                .requestMatchers("/images/**").permitAll()
+                .requestMatchers("/video/**").permitAll()
+                .requestMatchers("/", "login","signup", "logout").permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .requestMatchers("/board/**").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated()
-
         );
-
-
-
-
-
-
         return http.build();
     }
 }
