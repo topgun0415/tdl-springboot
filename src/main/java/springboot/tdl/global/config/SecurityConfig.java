@@ -13,11 +13,20 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests((auth) -> auth
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests((auth) -> auth
                 .requestMatchers("/images/**").permitAll()
                 .requestMatchers("/favicon.ico").permitAll()
                 .requestMatchers("/video/**").permitAll()
-                .requestMatchers("/", "login","signup", "logout").permitAll()
+                .requestMatchers(
+                        "/",
+                        "login",
+                        "signup",
+                        "logout",
+                        "/swagger-ui/**",
+                        "/v3/api-docs/**",
+                        "/swagger-ui.html").permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .requestMatchers("/board/**").hasAnyRole("ADMIN","USER")
                 .anyRequest().authenticated()
