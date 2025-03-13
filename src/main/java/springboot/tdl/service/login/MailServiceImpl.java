@@ -35,7 +35,7 @@ public class MailServiceImpl implements MailService {
      * @param recipient 宛先
      * @return randomNumber
      */
-    public MimeMessage createMail(String recipient) {
+    private MimeMessage createMail(String recipient) {
         int randomNumber = createRandomNumber();
         MimeMessage message = javaMailSender.createMimeMessage();
 
@@ -59,7 +59,7 @@ public class MailServiceImpl implements MailService {
      *
      * @return ランダム認証番号（169139）
      */
-    public static Integer createRandomNumber() {
+    private static Integer createRandomNumber() {
         return (int)(Math.random() * (90000)) + 100000;
     }
 }
